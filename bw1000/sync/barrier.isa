@@ -1,0 +1,256 @@
+// Actual linked gfx936 device-code disassembly (dccobjdump --show-sass).
+// Program: sync/barrier.hip
+// Source SHA256: c6d6799135d4ad99afbb16b68e576a426c24c7df6eb11de0a51f7295bfce743b
+// Executable SHA256: 952751c139a1d890b072ed8c7534858b88803955648ddb4c2edf958408ea5d44
+// Compiler: DTK25.04.4, dcc25.08.0, clang17
+// Compile: hipcc -O2 -std=c++17 --offload-arch=gfx936 program.hip -o bench
+// Verified run: ./bench (NO ARGUMENTS); compile/run/disassembly exit codes all 0.
+// Device: GPU7 / 0000:f5:00.0 / gfx936 / Wave64; no exclusivity claim.
+// This is disassembly for inspection, not an input required by the HIP program.
+_ZN2bw11calibrationEPy:
+	v_cmp_eq_u32_e32 vcc, 0, v0                                
+	s_and_saveexec_b64 s[0:1], vcc                             
+	s_cbranch_execz 23                                         
+	s_memtime s[2:3]                                           
+	v_mov_b32_e32 v0, 0x59682f00                               
+	v_mov_b32_e32 v1, 0                                        
+	s_memtime s[0:1]                                           
+	s_waitcnt lgkmcnt(0)                                       
+	s_sub_u32 s0, s0, s2                                       
+	s_subb_u32 s1, s1, s3                                      
+	v_cmp_lt_u64_e32 vcc, s[0:1], v[0:1]                       
+	s_cbranch_vccnz 65529                                      
+	s_load_dwordx2 s[2:3], s[4:5], 0x0                         
+	s_mov_b32 s7, 0                                            
+	s_lshl_b64 s[4:5], s[6:7], 3                               
+	v_mov_b32_e32 v2, 0                                        
+	v_mov_b64_e32 v[0:1], s[0:1]                               
+	s_waitcnt lgkmcnt(0)                                       
+	s_add_u32 s2, s2, s4                                       
+	s_addc_u32 s3, s3, s5                                      
+	global_store_dwordx2 v2, v[0:1], s[2:3]                    
+	s_endpgm                                                   
+
+clock_overhead_kernel:
+	s_memtime s[8:9]                                           
+	s_memtime s[6:7]                                           
+	s_memtime s[2:3]                                           
+	v_and_b32_e32 v0, 63, v0                                   
+	s_mov_b32 s0, 0                                            
+	v_cmp_eq_u32_e32 vcc, 0, v0                                
+	s_and_saveexec_b64 s[10:11], vcc                           
+	s_cbranch_execz 29                                         
+	s_load_dwordx2 s[4:5], s[4:5], 0x0                         
+	v_mov_b32_e32 v4, 0                                        
+	s_waitcnt lgkmcnt(0)                                       
+	v_mov_b32_e32 v0, s8                                       
+	v_mov_b32_e32 v1, s9                                       
+	v_mov_b32_e32 v2, s6                                       
+	v_mov_b32_e32 v3, s7                                       
+	global_store_dwordx4 v4, v[0:3], s[4:5]                    
+	s_mov_b32 s1, s0                                           
+	s_sub_i32 s10, s2, s8                                      
+	v_mov_b64_e32 v[0:1], s[2:3]                               
+	global_store_dwordx2 v4, v[0:1], s[4:5] offset:16          
+	s_mov_b32 s2, s0                                           
+	s_mov_b32 s3, s0                                           
+	v_mov_b64_e32 v[0:1], s[0:1]                               
+	v_mov_b64_e32 v[2:3], s[2:3]                               
+	global_store_dwordx4 v4, v[0:3], s[4:5] offset:24          
+	global_store_dwordx4 v4, v[0:3], s[4:5] offset:40          
+	global_store_dwordx4 v4, v[0:3], s[4:5] offset:48          
+	s_nop 1                                                    
+	v_mov_b32_e32 v3, s10                                      
+	global_store_dwordx2 v4, v[3:4], s[4:5] offset:64          
+	s_endpgm                                                   
+
+delay_kernel:
+	s_load_dword s0, s[4:5], 0x0                               
+	v_and_b32_e32 v1, 63, v0                                   
+	v_add_u32_e32 v0, 1, v1                                    
+	s_waitcnt lgkmcnt(0)                                       
+	s_memtime s[2:3]                                           
+	s_waitcnt lgkmcnt(0)                                       
+	s_cmp_eq_u32 s0, 0                                         
+	s_cbranch_scc1 12                                          
+	v_add_u32_e32 v0, 0x9e3779b9, v0                           
+	v_xor_b32_e32 v0, 0x85ebca6b, v0                           
+	v_add_u32_e32 v0, 0xc2b2ae35, v0                           
+	v_xor_b32_e32 v0, 0x27d4eb2f, v0                           
+	s_add_i32 s0, s0, -1                                       
+	s_cmp_lg_u32 s0, 0                                         
+	s_nop 1                                                    
+	s_cbranch_scc1 65524                                       
+	s_memtime s[6:7]                                           
+	s_mov_b32 s0, 0                                            
+	v_cmp_eq_u32_e32 vcc, 0, v1                                
+	s_and_saveexec_b64 s[8:9], vcc                             
+	s_cbranch_execz 24                                         
+	s_load_dwordx2 s[4:5], s[4:5], 0x8                         
+	v_mov_b32_e32 v1, 0                                        
+	v_mov_b32_e32 v2, s2                                       
+	v_mov_b32_e32 v3, s3                                       
+	s_waitcnt lgkmcnt(0)                                       
+	v_mov_b32_e32 v4, s6                                       
+	v_mov_b32_e32 v5, s7                                       
+	s_mov_b32 s2, s0                                           
+	s_mov_b32 s3, s0                                           
+	global_store_dwordx4 v1, v[2:5], s[4:5]                    
+	s_mov_b32 s1, s0                                           
+	s_nop 0                                                    
+	v_mov_b64_e32 v[4:5], s[2:3]                               
+	v_mov_b64_e32 v[2:3], s[0:1]                               
+	global_store_dwordx4 v1, v[2:5], s[4:5] offset:16          
+	global_store_dwordx4 v1, v[2:5], s[4:5] offset:32          
+	global_store_dwordx4 v1, v[2:5], s[4:5] offset:48          
+	global_store_dwordx2 v1, v[0:1], s[4:5] offset:64          
+	s_endpgm                                                   
+
+barrier_skew_kernel:
+	s_load_dword s0, s[4:5], 0x0                               
+	v_and_b32_e32 v2, 63, v0                                   
+	v_lshrrev_b32_e32 v1, 6, v0                                
+	v_add3_u32 v0, v2, v1, 1                                   
+	s_waitcnt lgkmcnt(0)                                       
+	s_barrier                                                  
+	s_memtime s[2:3]                                           
+	s_waitcnt lgkmcnt(0)                                       
+	v_mul_lo_u32 v3, v1, s0                                    
+	v_cmp_ne_u32_e32 vcc, 0, v3                                
+	s_and_saveexec_b64 s[0:1], vcc                             
+	s_cbranch_execz 15                                         
+	s_mov_b64 s[6:7], 0                                        
+	v_add_u32_e32 v0, 0x9e3779b9, v0                           
+	v_xor_b32_e32 v0, 0x85ebca6b, v0                           
+	v_add_u32_e32 v0, 0xc2b2ae35, v0                           
+	v_xor_b32_e32 v0, 0x27d4eb2f, v0                           
+	v_add_u32_e32 v3, -1, v3                                   
+	v_cmp_eq_u32_e32 vcc, 0, v3                                
+	s_or_b64 s[6:7], vcc, s[6:7]                               
+	s_andn2_b64 exec, exec, s[6:7]                             
+	s_cbranch_execnz 65523                                     
+	s_or_b64 exec, exec, s[6:7]                                
+	s_or_b64 exec, exec, s[0:1]                                
+	s_memtime s[8:9]                                           
+	s_barrier                                                  
+	s_memtime s[6:7]                                           
+	s_mov_b32 s0, 0                                            
+	v_cmp_eq_u32_e32 vcc, 0, v2                                
+	s_and_saveexec_b64 s[10:11], vcc                           
+	s_cbranch_execz 31                                         
+	s_load_dwordx2 s[4:5], s[4:5], 0x8                         
+	s_movk_i32 s1, 0x48                                        
+	v_mov_b32_e32 v2, s2                                       
+	v_mov_b32_e32 v3, s3                                       
+	s_waitcnt lgkmcnt(0)                                       
+	v_mov_b64_e32 v[8:9], s[6:7]                               
+	v_mov_b64_e32 v[4:5], s[4:5]                               
+	v_mad_u64_u32 v[6:7], s[2:3], v1, s1, v[4:5]               
+	v_mov_b32_e32 v4, s8                                       
+	v_mov_b32_e32 v5, s9                                       
+	s_mov_b32 s2, s0                                           
+	s_mov_b32 s3, s0                                           
+	global_store_dwordx4 v[6:7], v[2:5], off                   
+	global_store_dwordx2 v[6:7], v[8:9], off offset:16         
+	s_mov_b32 s1, s0                                           
+	v_mov_b64_e32 v[3:4], s[2:3]                               
+	v_mov_b64_e32 v[1:2], s[0:1]                               
+	global_store_dwordx4 v[6:7], v[1:4], off offset:24         
+	global_store_dwordx4 v[6:7], v[1:4], off offset:40         
+	global_store_dwordx4 v[6:7], v[1:4], off offset:48         
+	s_nop 1                                                    
+	v_mov_b32_e32 v1, 0                                        
+	global_store_dwordx2 v[6:7], v[0:1], off offset:64         
+	s_endpgm                                                   
+
+_Z19barrier_loop_kernelILb1EEvjP12TimingRecord:
+	s_load_dword s0, s[4:5], 0x0                               
+	v_and_b32_e32 v2, 63, v0                                   
+	v_lshrrev_b32_e32 v1, 6, v0                                
+	v_add3_u32 v0, v2, v1, 1                                   
+	s_waitcnt lgkmcnt(0)                                       
+	s_barrier                                                  
+	s_memtime s[2:3]                                           
+	s_waitcnt lgkmcnt(0)                                       
+	s_cmp_eq_u32 s0, 0                                         
+	s_cbranch_scc1 6                                           
+	v_add_u32_e32 v0, 1, v0                                    
+	s_barrier                                                  
+	s_add_i32 s0, s0, -1                                       
+	s_cmp_eq_u32 s0, 0                                         
+	s_nop 1                                                    
+	s_cbranch_scc0 65530                                       
+	s_memtime s[6:7]                                           
+	s_mov_b32 s0, 0                                            
+	v_cmp_eq_u32_e32 vcc, 0, v2                                
+	s_and_saveexec_b64 s[8:9], vcc                             
+	s_cbranch_execz 29                                         
+	s_load_dwordx2 s[4:5], s[4:5], 0x8                         
+	s_movk_i32 s1, 0x48                                        
+	v_mov_b32_e32 v2, s2                                       
+	v_mov_b32_e32 v3, s3                                       
+	s_waitcnt lgkmcnt(0)                                       
+	v_mov_b64_e32 v[4:5], s[4:5]                               
+	v_mad_u64_u32 v[6:7], s[2:3], v1, s1, v[4:5]               
+	v_mov_b32_e32 v4, s6                                       
+	v_mov_b32_e32 v5, s7                                       
+	s_mov_b32 s2, s0                                           
+	s_mov_b32 s3, s0                                           
+	s_mov_b32 s1, s0                                           
+	global_store_dwordx4 v[6:7], v[2:5], off                   
+	s_nop 1                                                    
+	v_mov_b64_e32 v[3:4], s[2:3]                               
+	v_mov_b64_e32 v[1:2], s[0:1]                               
+	global_store_dwordx4 v[6:7], v[1:4], off offset:16         
+	global_store_dwordx4 v[6:7], v[1:4], off offset:32         
+	global_store_dwordx4 v[6:7], v[1:4], off offset:48         
+	s_nop 1                                                    
+	v_mov_b32_e32 v1, 0                                        
+	global_store_dwordx2 v[6:7], v[0:1], off offset:64         
+	s_endpgm                                                   
+
+_Z19barrier_loop_kernelILb0EEvjP12TimingRecord:
+	s_load_dword s0, s[4:5], 0x0                               
+	v_and_b32_e32 v2, 63, v0                                   
+	v_lshrrev_b32_e32 v1, 6, v0                                
+	v_add3_u32 v0, v2, v1, 1                                   
+	s_waitcnt lgkmcnt(0)                                       
+	s_barrier                                                  
+	s_memtime s[2:3]                                           
+	s_waitcnt lgkmcnt(0)                                       
+	s_cmp_eq_u32 s0, 0                                         
+	s_cbranch_scc1 5                                           
+	v_add_u32_e32 v0, 1, v0                                    
+	s_add_i32 s0, s0, -1                                       
+	s_cmp_eq_u32 s0, 0                                         
+	s_nop 1                                                    
+	s_cbranch_scc0 65531                                       
+	s_memtime s[6:7]                                           
+	s_mov_b32 s0, 0                                            
+	v_cmp_eq_u32_e32 vcc, 0, v2                                
+	s_and_saveexec_b64 s[8:9], vcc                             
+	s_cbranch_execz 29                                         
+	s_load_dwordx2 s[4:5], s[4:5], 0x8                         
+	s_movk_i32 s1, 0x48                                        
+	v_mov_b32_e32 v2, s2                                       
+	v_mov_b32_e32 v3, s3                                       
+	s_waitcnt lgkmcnt(0)                                       
+	v_mov_b64_e32 v[4:5], s[4:5]                               
+	v_mad_u64_u32 v[6:7], s[2:3], v1, s1, v[4:5]               
+	v_mov_b32_e32 v4, s6                                       
+	v_mov_b32_e32 v5, s7                                       
+	s_mov_b32 s2, s0                                           
+	s_mov_b32 s3, s0                                           
+	s_mov_b32 s1, s0                                           
+	global_store_dwordx4 v[6:7], v[2:5], off                   
+	s_nop 1                                                    
+	v_mov_b64_e32 v[3:4], s[2:3]                               
+	v_mov_b64_e32 v[1:2], s[0:1]                               
+	global_store_dwordx4 v[6:7], v[1:4], off offset:16         
+	global_store_dwordx4 v[6:7], v[1:4], off offset:32         
+	global_store_dwordx4 v[6:7], v[1:4], off offset:48         
+	s_nop 1                                                    
+	v_mov_b32_e32 v1, 0                                        
+	global_store_dwordx2 v[6:7], v[0:1], off offset:64         
+	s_endpgm                                                   
+
